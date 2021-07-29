@@ -35,6 +35,16 @@ class ProductData
     private string $productCode;
 
     /**
+     * @ORM\Column(name="dcmCost", type="decimal", precision=8, scale=2)
+     */
+    private string $cost;
+
+    /**
+     * @ORM\Column(name="intStock", type="integer")
+     */
+    private int $stock;
+
+    /**
      * @ORM\Column(name="dtmAdded", type="datetime_immutable", nullable=true)
      */
     private DateTimeImmutable $added;
@@ -159,5 +169,37 @@ class ProductData
     public function setTimestamp(DateTimeImmutable $timestamp): void
     {
         $this->timestamp = $timestamp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCost(): string
+    {
+        return $this->cost;
+    }
+
+    /**
+     * @param string $cost
+     */
+    public function setCost(string $cost): void
+    {
+        $this->cost = $cost;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStock(): int
+    {
+        return $this->stock;
+    }
+
+    /**
+     * @param int $stock
+     */
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
     }
 }
