@@ -20,7 +20,7 @@ class ValidationProcess extends Process
     {
         $this->productRows = $productRows;
         $this->RegexValidate();
-        $this->codeRepeatValidate();
+        $this->productCodeRepeatValidate();
         return $productRows;
     }
 
