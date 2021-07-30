@@ -3,14 +3,15 @@
 
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ORM\Table(name="tblProductData")
  */
-class ProductData
+class Product
 {
     /**
      * @ORM\Id

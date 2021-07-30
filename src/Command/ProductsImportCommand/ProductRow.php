@@ -6,17 +6,27 @@ namespace App\Command\ProductsImportCommand;
 
 class ProductRow
 {
+    const CODE = 0;
+    const NAME = 1;
+    const DESCRIPTION = 2;
+    const STOCK = 3;
+    const COST = 4;
+    const DISCONTINUED = 5;
+
+    const COLUMN_COUNT = 6;
+
     private array $errors = [];
 
     private array $warnings = [];
 
+    private int $position;
+
     public array $csvRow = [];
 
-    public array $normalizedCsvRow = [];
-
-    public function __construct(array $csvRow)
+    public function __construct(array $csvRow, int $position)
     {
         $this->csvRow = $csvRow;
+        $this->position = $position;
     }
 
     public function addError(string $error)
@@ -47,5 +57,13 @@ class ProductRow
     public function hasWarnings(): bool
     {
         return !empty($this->warnings);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition(): int
+    {
+        return $this->position;
     }
 }
