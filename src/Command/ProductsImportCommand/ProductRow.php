@@ -13,8 +13,6 @@ class ProductRow
     const COST = 4;
     const DISCONTINUED = 5;
 
-    const COLUMN_COUNT = 6;
-
     private array $errors = [];
 
     private array $warnings = [];
@@ -42,21 +40,6 @@ class ProductRow
     public function hasErrors(): bool
     {
         return !empty($this->errors);
-    }
-
-    public function addWarning(string $warning)
-    {
-        $this->warnings[] = $warning;
-    }
-
-    public function getWarnings(): array
-    {
-        return $this->warnings;
-    }
-
-    public function hasWarnings(): bool
-    {
-        return !empty($this->warnings);
     }
 
     /**
