@@ -24,7 +24,7 @@ class LoadCsvProcess extends Process
         $csvRows = $this->loadCsvRows($filename);
 
         if (isset($csvRows[0]) && count($csvRows[0]) != ProductRow::COLUMNS_COUNT) {
-            $this->addError("In csv file, column count need to be 6.");
+            $this->addError("In csv file, column count need to be " . ProductRow::COLUMNS_COUNT . ".");
             return [];
         }
 
