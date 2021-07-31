@@ -42,11 +42,11 @@ class UpdateDBProcess extends Process
         $isNew = false;
         if ($product === null) {
             $product = new Product();
+            $entityManager->persist($product);
             $isNew = true;
         }
 
         $this->productRowToProductEntity($productRow, $product, $isNew);
-        $entityManager->persist($product);
     }
 
     private function productRowToProductEntity(ProductRow $productRow, Product $product, bool $isNew = false)
