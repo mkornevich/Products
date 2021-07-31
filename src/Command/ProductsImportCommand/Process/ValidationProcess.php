@@ -26,10 +26,17 @@ class ValidationProcess extends Process
 
     private function RegexValidate()
     {
-        $this->AddErrorIfNotMatch(ProductRow::CODE, '/^P\d{4}$/', "Incorrect product code.");
-        $this->AddErrorIfNotMatch(ProductRow::STOCK, '/^\d+$/', "Incorrect stock. Must be number without point.");
-        $this->AddErrorIfNotMatch(ProductRow::COST, '/^\d+(.\d+)?$/', "Incorrect cost. Must be number.");
-        $this->AddErrorIfNotMatch(ProductRow::DISCONTINUED, '/^yes$|^$/', "Incorrect discontinued. Must be yes or empty.");
+        $this->AddErrorIfNotMatch(ProductRow::CODE, '/^P\d{4}$/',
+            "Incorrect product code.");
+
+        $this->AddErrorIfNotMatch(ProductRow::STOCK, '/^\d+$/',
+            "Incorrect stock. Must be number without point.");
+
+        $this->AddErrorIfNotMatch(ProductRow::COST, '/^\d+(.\d+)?$/',
+            "Incorrect cost. Must be number.");
+
+        $this->AddErrorIfNotMatch(ProductRow::DISCONTINUED, '/^yes$|^$/',
+            "Incorrect discontinued. Must be yes or empty.");
     }
 
     private function AddErrorIfNotMatch(int $column, string $pattern, string $errorMessage)
