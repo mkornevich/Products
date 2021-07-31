@@ -53,15 +53,16 @@ class ValidationProcess extends Process
     {
         $rows = $this->productRows;
         $ignorePositions = [];
+        $count = count($rows);
 
-        for ($upI = 0; $upI < count($rows); $upI++) {
+        for ($upI = 0; $upI < $count; $upI++) {
             $upRow = $rows[$upI];
             if (in_array($upRow->getPosition(), $ignorePositions)) continue;
 
             $repeatRows = [$upRow];
             $repeatPositions = [$upRow->getPosition()];
 
-            for ($downI = $upI + 1; $downI < count($rows); $downI++) {
+            for ($downI = $upI + 1; $downI < $count; $downI++) {
                 $downRow = $rows[$downI];
                 if (in_array($downRow->getPosition(), $ignorePositions)) continue;
 
