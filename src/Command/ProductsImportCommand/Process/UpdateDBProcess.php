@@ -35,8 +35,17 @@ class UpdateDBProcess extends Process
 
     private function productRowToDatabase(ProductRow $productRow, EntityManagerInterface $entityManager)
     {
-        $product = new Product();
-        $this->productRowToProductEntity($productRow, $product);
+        $product = $entityManager
+            ->getRepository(Product::class)
+            ->findOneBy(['productCode' => $productRow->csvRow[ProductRow::CODE]]);
+
+        $isNew = false;
+        if ($product === null) {
+            $product = new Product();
+            $isNew = true;
+        }
+
+        $this->productRowToProductEntity($productRow, $product, $isNew);
         $entityManager->persist($product);
     }
 
@@ -50,8 +59,11 @@ class UpdateDBProcess extends Process
         $product->setStock($csvRow[ProductRow::STOCK]);
         $product->setCost($csvRow[ProductRow::COST]);
 
-        if ($csvRow[ProductRow::DISCONTINUED] == 'yes') {
+        $discontinued = $csvRow[ProductRow::DISCONTINUED];
+        if ($product->getDiscontinued() === null && $discontinued === 'yes') {
             $product->setDiscontinued(new DateTimeImmutable());
+        } elseif ($product->getDiscontinued() !== null && $discontinued === '') {
+            $product->setDiscontinued(null);
         }
 
         if ($isNew) {

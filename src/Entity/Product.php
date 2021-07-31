@@ -53,7 +53,7 @@ class Product
     /**
      * @ORM\Column(name="dtmDiscontinued", type="datetime_immutable", nullable=true)
      */
-    private DateTimeImmutable $discontinued;
+    private ?DateTimeImmutable $discontinued = null;
 
     /**
      * @ORM\Column(name="stmTimestamp", type="datetime_immutable", columnDefinition="TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
@@ -141,17 +141,17 @@ class Product
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return ?DateTimeImmutable
      */
-    public function getDiscontinued(): DateTimeImmutable
+    public function getDiscontinued(): ?DateTimeImmutable
     {
         return $this->discontinued;
     }
 
     /**
-     * @param DateTimeImmutable $discontinued
+     * @param ?DateTimeImmutable $discontinued
      */
-    public function setDiscontinued(DateTimeImmutable $discontinued): void
+    public function setDiscontinued(?DateTimeImmutable $discontinued): void
     {
         $this->discontinued = $discontinued;
     }
