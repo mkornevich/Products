@@ -44,8 +44,36 @@ class ValidationProcess extends Process
 
     private function productCodeRepeatValidate()
     {
-        foreach ($this->productRows as $key => $productRow) {
-            //TODO
+        $rows = $this->productRows;
+        $ignorePositions = [];
+
+        for ($upI = 0; $upI < count($rows); $upI++) {
+            $upRow = $rows[$upI];
+            if (in_array($upRow->getPosition(), $ignorePositions)) continue;
+
+            $repeatRows = [$upRow];
+            $repeatPositions = [$upRow->getPosition()];
+
+            for ($downI = $upI + 1; $downI < count($rows); $downI++) {
+                $downRow = $rows[$downI];
+                if (in_array($downRow->getPosition(), $ignorePositions)) continue;
+
+                if ($upRow->csvRow[ProductRow::CODE] === $downRow->csvRow[ProductRow::CODE]) {
+                    $repeatRows[] = $downRow;
+                    $repeatPositions[] = $downRow->getPosition();
+                    $ignorePositions[] = $downRow->getPosition();
+                }
+            }
+
+            if (count($repeatRows) > 1) {
+                $repeatPositionsStr = join(", ", $repeatPositions);
+                foreach ($repeatRows as $repeatRow) {
+                    $ignorePositions[] = $repeatRow->getPosition();
+                    $repeatRow->addError(
+                        "In this position, product code repeat with another positions: " .
+                        $repeatPositionsStr);
+                }
+            }
         }
     }
 }
