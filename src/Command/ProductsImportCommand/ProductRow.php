@@ -15,8 +15,6 @@ class ProductRow
 
     private array $errors = [];
 
-    private array $warnings = [];
-
     private int $position;
 
     public array $csvRow = [];

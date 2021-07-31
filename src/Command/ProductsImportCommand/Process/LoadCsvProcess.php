@@ -14,7 +14,7 @@ class LoadCsvProcess extends Process
 {
     public function process(array $productRows, InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager): array
     {
-        $filename = '/home/ITRANSITION.CORP/m.kornevich/Desktop/TestTask/stock.csv';
+        $filename = $input->getArgument('filename');
 
         if (!file_exists($filename)) {
             $this->addError("File not found.");
