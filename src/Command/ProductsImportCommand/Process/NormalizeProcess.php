@@ -16,7 +16,6 @@ class NormalizeProcess extends Process
         foreach ($productRows as $productRow) {
             $this->normalizeCost($productRow);
         }
-
         return $productRows;
     }
 

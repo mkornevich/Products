@@ -6,7 +6,6 @@ namespace App\Command\ProductsImportCommand\Process;
 
 use App\Command\ProductsImportCommand\ProductRow;
 use App\Entity\Product;
-use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,6 +32,7 @@ class UpdateDBProcess extends Process
                 $this->productRowToDatabase($productRow, $entityManager);
             }
         }
+
         $entityManager->flush();
         return $productRows;
     }
@@ -62,6 +62,11 @@ class UpdateDBProcess extends Process
         $product->setProductName($csvRow[ProductRow::NAME]);
         $product->setStock($csvRow[ProductRow::STOCK]);
         $product->setCost($csvRow[ProductRow::COST]);
+        $product->setTimestamp(new DateTimeImmutable());
+
+        if ($isNew) {
+            $product->setAdded(new DateTimeImmutable());
+        }
 
         $discontinued = $csvRow[ProductRow::DISCONTINUED];
         if ($product->getDiscontinued() === null && $discontinued === 'yes') {
@@ -69,11 +74,5 @@ class UpdateDBProcess extends Process
         } elseif ($product->getDiscontinued() !== null && $discontinued === '') {
             $product->setDiscontinued(null);
         }
-
-        if ($isNew) {
-            $product->setAdded(new DateTimeImmutable());
-        }
-
-        $product->setTimestamp(new DateTimeImmutable());
     }
 }

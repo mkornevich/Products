@@ -13,6 +13,8 @@ class ProductRow
     const COST = 4;
     const DISCONTINUED = 5;
 
+    const COLUMNS_COUNT = 6;
+
     private array $errors = [];
 
     private int $position;

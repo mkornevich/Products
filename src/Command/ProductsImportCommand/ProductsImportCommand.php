@@ -10,8 +10,6 @@ use App\Command\ProductsImportCommand\Process\RuleValidationProcess;
 use App\Command\ProductsImportCommand\Process\ShowInfoProcess;
 use App\Command\ProductsImportCommand\Process\UpdateDBProcess;
 use App\Command\ProductsImportCommand\Process\ValidationProcess;
-use App\Entity\Product;
-use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ProductsImportCommand extends Command
 {
-    protected static $defaultName = 'app:products-import';
+    protected static $defaultName = 'app:import:products';
 
     private EntityManagerInterface $entityManager;
 

@@ -5,7 +5,6 @@ namespace App\Command\ProductsImportCommand;
 
 
 use App\Command\ProductsImportCommand\Process\Process;
-use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

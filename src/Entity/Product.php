@@ -3,12 +3,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity
  * @ORM\Table(name="tblProductData")
  */
 class Product
@@ -59,22 +58,6 @@ class Product
      * @ORM\Column(name="stmTimestamp", type="datetime_immutable", columnDefinition="TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
      */
     private DateTimeImmutable $timestamp;
-
-    /**
-     * @return int
-     */
-    public function getProductDataId(): int
-    {
-        return $this->productDataId;
-    }
-
-    /**
-     * @param int $productDataId
-     */
-    public function setProductDataId(int $productDataId): void
-    {
-        $this->productDataId = $productDataId;
-    }
 
     /**
      * @return string
