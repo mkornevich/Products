@@ -7,6 +7,7 @@ namespace App\Command\ProductsImportCommand;
 use App\Command\ProductsImportCommand\Process\LoadCsvProcess;
 use App\Command\ProductsImportCommand\Process\NormalizeProcess;
 use App\Command\ProductsImportCommand\Process\RuleValidationProcess;
+use App\Command\ProductsImportCommand\Process\ShowInfoProcess;
 use App\Command\ProductsImportCommand\Process\UpdateDBProcess;
 use App\Command\ProductsImportCommand\Process\ValidationProcess;
 use App\Entity\Product;
@@ -46,6 +47,7 @@ class ProductsImportCommand extends Command
         $processor->addProcess(new ValidationProcess());
         $processor->addProcess(new RuleValidationProcess());
         $processor->addProcess(new UpdateDBProcess());
+        $processor->addProcess(new ShowInfoProcess());
 
         $processor->process($input, $output, $this->entityManager);
 
