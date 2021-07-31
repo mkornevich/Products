@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ProductsImportCommand extends Command
@@ -35,7 +36,12 @@ class ProductsImportCommand extends Command
         $this
             ->setDescription("Import products from csv file.")
             ->setHelp("This command allows you to import products into DB from csv file, also show import information.")
-            ->addArgument('filename', InputArgument::REQUIRED, "This argument represent csv file for import.");
+
+            ->addArgument('filename', InputArgument::REQUIRED,
+                "This argument represent csv file for import.")
+
+            ->addOption('test', 't', InputOption::VALUE_NONE,
+                "Allows enable test mode, in which upload to database will be ignore.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

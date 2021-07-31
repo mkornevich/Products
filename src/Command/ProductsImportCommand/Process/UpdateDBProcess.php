@@ -24,6 +24,10 @@ class UpdateDBProcess extends Process
      */
     public function process(array $productRows, InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager): array
     {
+        if($input->getOption('test')) {
+            return $productRows;
+        }
+
         foreach ($productRows as $productRow) {
             if (!$productRow->hasErrors()) {
                 $this->productRowToDatabase($productRow, $entityManager);
