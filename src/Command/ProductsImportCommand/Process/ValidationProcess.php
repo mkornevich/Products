@@ -5,7 +5,6 @@ namespace App\Command\ProductsImportCommand\Process;
 
 
 use App\Command\ProductsImportCommand\ProductRow;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -16,7 +15,7 @@ class ValidationProcess extends Process
      */
     private array $productRows;
 
-    public function process(array $productRows, InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager): array
+    public function process(array $productRows, InputInterface $input, OutputInterface $output): array
     {
         $this->productRows = $productRows;
         $this->RegexValidate();

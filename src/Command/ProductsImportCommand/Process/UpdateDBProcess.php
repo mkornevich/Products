@@ -13,15 +13,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UpdateDBProcess extends Process
 {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     /**
      * @param ProductRow[] $productRows
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @param EntityManagerInterface $entityManager
      * @return ProductRow[]
      */
-    public function process(array $productRows, InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager): array
+    public function process(array $productRows, InputInterface $input, OutputInterface $output): array
     {
         if($input->getOption('test')) {
             return $productRows;
@@ -29,24 +34,24 @@ class UpdateDBProcess extends Process
 
         foreach ($productRows as $productRow) {
             if (!$productRow->hasErrors()) {
-                $this->productRowToDatabase($productRow, $entityManager);
+                $this->productRowToDatabase($productRow);
             }
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
         return $productRows;
     }
 
-    private function productRowToDatabase(ProductRow $productRow, EntityManagerInterface $entityManager)
+    private function productRowToDatabase(ProductRow $productRow)
     {
-        $product = $entityManager
+        $product = $this->entityManager
             ->getRepository(Product::class)
             ->findOneBy(['productCode' => $productRow->csvRow[ProductRow::CODE]]);
 
         $isNew = false;
         if ($product === null) {
             $product = new Product();
-            $entityManager->persist($product);
+            $this->entityManager->persist($product);
             $isNew = true;
         }
 

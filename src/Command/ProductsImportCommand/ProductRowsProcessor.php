@@ -24,14 +24,13 @@ class ProductRowsProcessor
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @param EntityManagerInterface $entityManager
      */
-    public function process(InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager)
+    public function process(InputInterface $input, OutputInterface $output)
     {
         $prevProductRows = [];
         foreach ($this->processes as $process)
         {
-            $prevProductRows = $process->process($prevProductRows, $input, $output, $entityManager);
+            $prevProductRows = $process->process($prevProductRows, $input, $output);
             if ($process->hasErrors()) {
                 $output->writeln("Errors in process: " . get_class($process));
                 OutputUtils::printNumerateMessages($output, $process->getErrors());

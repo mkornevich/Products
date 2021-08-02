@@ -6,21 +6,19 @@ namespace App\Command\ProductsImportCommand\Process;
 
 use App\Command\ProductsImportCommand\OutputUtils;
 use App\Command\ProductsImportCommand\ProductRow;
-use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ShowInfoProcess extends Process
 {
-
     /**
      * @param ProductRow[] $productRows
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @param EntityManagerInterface $entityManager
      * @return ProductRow[]
      */
-    public function process(array $productRows, InputInterface $input, OutputInterface $output, EntityManagerInterface $entityManager): array
+    public function process(array $productRows, InputInterface $input, OutputInterface $output): array
     {
         $this->printProductRowsInfo($productRows, $output);
         $this->printTotalInfo($productRows, $output);
@@ -64,6 +62,7 @@ class ShowInfoProcess extends Process
      * @param ProductRow[] $productRows
      * @return int
      */
+    #[Pure]
     private function getValidProductRowCount(array $productRows): int
     {
         $result = 0;
@@ -74,5 +73,4 @@ class ShowInfoProcess extends Process
         }
         return $result;
     }
-
 }

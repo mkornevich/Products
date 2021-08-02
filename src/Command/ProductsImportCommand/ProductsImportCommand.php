@@ -46,14 +46,14 @@ class ProductsImportCommand extends Command
     {
         $processor = new ProductRowsProcessor();
 
-        $processor->addProcess(new LoadCsvProcess());
+        $processor->addProcess(new LoadCsvProcess(new Filesystem()));
         $processor->addProcess(new NormalizeProcess());
         $processor->addProcess(new ValidationProcess());
         $processor->addProcess(new RuleValidationProcess());
-        $processor->addProcess(new UpdateDBProcess());
+        $processor->addProcess(new UpdateDBProcess($this->entityManager));
         $processor->addProcess(new ShowInfoProcess());
 
-        $processor->process($input, $output, $this->entityManager);
+        $processor->process($input, $output);
 
         return Command::SUCCESS;
     }
